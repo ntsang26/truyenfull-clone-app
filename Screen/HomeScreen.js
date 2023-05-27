@@ -9,20 +9,14 @@ const HomeScreen = () => {
         name="Trang chủ"
         component={Home}
         options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#f4511e",
-          },
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
         name="Mô tả"
         component={Description}
         options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#f4511e",
-          },
+          headerShown: false
         }}
       />
     </HomeStack.Navigator>

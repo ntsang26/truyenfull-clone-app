@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, useWindowDimensions } from "react-native";
 import { useSelector } from "react-redux";
 import RenderHtml from "react-native-render-html";
 
@@ -11,9 +11,10 @@ const Description = ({ route, navigation }) => {
   const source = {
     html: findStories.desc,
   };
+  const contentWidth = useWindowDimensions()
   return (
     <ScrollView>
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginTop: 100 }}>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <Image
             source={{ uri: `${findStories.image}` }}
@@ -52,7 +53,10 @@ const Description = ({ route, navigation }) => {
           </View>
         </View>
         <View style={{ paddingHorizontal: 15 }}>
-          <RenderHtml source={source} />
+          <RenderHtml
+            source={source}
+            contentWidth={contentWidth}
+          />
         </View>
       </View>
     </ScrollView>

@@ -23,6 +23,7 @@ function Home({ navigation }) {
         style={{
           flexDirection: "column",
           paddingHorizontal: 20,
+          marginTop: 50
         }}
       >
         {data == undefined
