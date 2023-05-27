@@ -1,6 +1,6 @@
 import { GET_LIST_STORY, GET_LIST_STORY_SUCCESS } from '../constant/constant.js';
 
-const postReducer = (state = [], action) => {
+const storyReducer = (state = [], action) => {
   switch (action.type) {
     case GET_LIST_STORY:
       return 0;
@@ -16,4 +16,4 @@ const postReducer = (state = [], action) => {
   }
 };
 
-export default postReducer;
+export default storyReducer;

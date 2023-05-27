@@ -1,5 +1,5 @@
 import { all } from "redux-saga/effects";
-import getListPostSaga from "../saga";
+import getListStorySaga from "../saga/storySaga.js";
 export default function* root() {
-  yield all([getListPostSaga()]);
+  yield all([getListStorySaga()]);
 }

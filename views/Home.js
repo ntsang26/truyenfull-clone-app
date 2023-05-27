@@ -8,12 +8,12 @@ import {
 } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import moment from "moment"
-import { getListPost } from "../action/action"
+import { getListStory } from "../action/action"
 
 function Home({ navigation }) {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getListPost())
+    dispatch(getListStory())
   }, [])
   const list = useSelector((state) => state)
   const data = list.posts.posts
