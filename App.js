@@ -1,37 +1,20 @@
 import * as React from "react";
-import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
-
 import Explore from "./views/Explore";
 import FindStories from "./views/FindStories";
 import Genre from "./views/Genre";
 import Offline from "./views/Offline";
-// import Home from "./Home";
-import HomeScreen from "./Screen/HomeScreen";
-import homeIndex from "./Screen/homeIndex";
-import Describe from "./Screen/Describe";
+import HomeScreen from "./screen/HomeScreen";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
 function App() {
   const Tab = createBottomTabNavigator();
-  const Stack = createNativeStackNavigator();
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {/* <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={homeIndex}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Mô tả " component={Describe} />
-        </Stack.Navigator> */}
-
         <Tab.Navigator
           screenOptions={{
             headerStyle: {
@@ -50,7 +33,7 @@ function App() {
           }}
         >
           <Tab.Screen
-            name="Trang chủ "
+            name="Trang chủ"
             component={HomeScreen}
             options={{
               headerShown: false,

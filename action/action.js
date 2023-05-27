@@ -1,15 +1,15 @@
-import { GET_LIST_POST, GET_LIST_POST_SUCCESS } from "./constant";
+import { GET_LIST_STORY, GET_LIST_STORY_SUCCESS } from "../constant/constant";
 
 export const getListPost = (action) => {
   return {
-    type: "GET_LIST_POST",
+    type: GET_LIST_STORY,
     // payload,
   };
 };
 
 export const getListPostSuccess = (payload) => {
   return {
-    type: "GET_LIST_POST_SUCCESS",
+    type: GET_LIST_STORY_SUCCESS,
     payload,
   };
 };

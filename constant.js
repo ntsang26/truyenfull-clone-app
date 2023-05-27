@@ -1,2 +1,0 @@
-export const GET_LIST_POST = "GET_LIST_POST";
-export const GET_LIST_POST_SUCCESS = "GET_LIST_POST_SUCCESS";

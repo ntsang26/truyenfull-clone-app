@@ -1,15 +1,13 @@
 import { View, Text, Image, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import RenderHtml from "react-native-render-html";
-const Describe = ({ route, navigation }) => {
-  const { id } = route.params;
-  // console.log("id cua truyen la =========", id);
+
+const Description = ({ route, navigation }) => {
+  const { sid } = route.params;
   const list = useSelector((state) => state);
 
   const data = list.posts.posts;
-  // console.log("data ======", data);
-  const findStories = data.find((item) => item._id == id);
-  // console.log("ket qua loc ========", findStories);
+  const findStories = data.find((item) => item.sid == sid);
   const source = {
     html: findStories.desc,
   };
@@ -60,4 +58,4 @@ const Describe = ({ route, navigation }) => {
     </ScrollView>
   );
 };
-export default Describe;
+export default Description;

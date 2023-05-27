@@ -1,16 +1,16 @@
+import { GET_LIST_STORY, GET_LIST_STORY_SUCCESS } from '../constant/constant.js';
+
 const postReducer = (state = [], action) => {
-  // console.log("action.type trong reducer =====" + "\n", action);
   switch (action.type) {
-    case "GET_LIST_POST":
+    case GET_LIST_STORY:
       return 0;
-    case "GET_LIST_POST_SUCCESS":
+    case GET_LIST_STORY_SUCCESS:
       const { data } = action.payload;
       return {
         ...state,
         posts: data,
         load: false,
       };
-      return 1;
     default:
       return state;
   }
