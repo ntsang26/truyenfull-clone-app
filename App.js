@@ -7,6 +7,7 @@ import FindStories from "./views/FindStories";
 import Genre from "./views/Genre";
 import Offline from "./views/Offline";
 import HomeScreen from "./screen/HomeScreen";
+import CategoryScreen from "./screen/CategoryScreen";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
@@ -55,7 +56,7 @@ function App() {
           />
           <Tab.Screen
             name="Thể loại"
-            component={Genre}
+            component={CategoryScreen}
             options={{
               tabBarLabel: "Thể loại",
               tabBarIcon: ({ color, size }) => (

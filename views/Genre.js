@@ -1,17 +1,52 @@
 // THỂ LOẠI
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getListCategory } from "../action/categoryAction";
 function Genre({ navigation }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getListCategory());
+  }, []);
+  const list = useSelector((state) => state);
+  const data = list.category.posts;
+  console.log("category data ========", data);
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Thể loại truyện</Text>
-      {/* <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
-      /> */}
-    </View>
+    <ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          paddingTop: 30,
+        }}
+      >
+        {data == undefined
+          ? ""
+          : data.map((item) => {
+              return (
+                <TouchableOpacity
+                  key={item.sid}
+                  style={{
+                    width: 170,
+                    height: 60,
+                    backgroundColor: "#CCCCCC",
+                    marginVertical: 15,
+                    marginHorizontal: 15,
+                    borderRadius: 5,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 19 }}>{item.name}</Text>
+                </TouchableOpacity>
+              );
+            })}
+      </View>
+    </ScrollView>
   );
 }
 export default Genre;
