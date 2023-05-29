@@ -11,6 +11,7 @@ import CategoryScreen from "./screen/CategoryScreen";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import SearchScreen from "./screen/SearchScreen";
+import { EXPLORE, GENRE, HOME, OFFLINE, SEARCH } from './constant/view.js';
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -36,40 +37,40 @@ function App() {
           }}
         >
           <Tab.Screen
-            name="Trang chủ"
+            name={HOME}
             component={HomeScreen}
             options={{
               headerShown: false,
-              tabBarLabel: "Trang chủ",
+              tabBarLabel: HOME,
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="home" color={color} size={size} />
               ),
             }}
           />
           <Tab.Screen
-            name="Khám phá"
+            name={EXPLORE}
             component={Explore}
             options={{
               headerShown: false,
-              tabBarLabel: "Khám phá",
+              tabBarLabel: EXPLORE,
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="find" color={color} size={size} />
               ),
             }}
           />
           <Tab.Screen
-            name="Thể loại"
+            name={GENRE}
             component={CategoryScreen}
             options={{
               headerShown: false,
-              tabBarLabel: "Thể loại",
+              tabBarLabel: GENRE,
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="book" color={color} size={size} />
               ),
             }}
           />
           <Tab.Screen
-            name="Tìm kiếm truyện"
+            name={SEARCH}
             component={SearchScreen}
             options={{
               headerShown: false,
@@ -80,7 +81,7 @@ function App() {
             }}
           />
           <Tab.Screen
-            name="Truyện offline"
+            name={OFFLINE}
             component={Offline}
             options={{
               headerShown: false,

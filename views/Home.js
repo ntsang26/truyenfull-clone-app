@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux"
 import moment from "moment"
 import { getListStory } from "../action/action"
+import { DESC } from '../constant/view.js'
 
 function Home({ navigation }) {
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ function Home({ navigation }) {
                   borderRadius: 10,
                 }}
                 onPress={() =>
-                  navigation.navigate("Mô tả", {
+                  navigation.navigate(DESC, {
                     sid: item.sid,
                   })
                 }

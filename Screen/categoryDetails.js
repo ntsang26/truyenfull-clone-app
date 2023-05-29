@@ -2,6 +2,7 @@ import { filter } from "domutils";
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { DESC } from '../constant/view.js';
 
 const categoryDetails = ({ route, navigation }) => {
   const { sid } = route.params;
@@ -32,7 +33,7 @@ const categoryDetails = ({ route, navigation }) => {
                     borderRadius: 10,
                   }}
                   onPress={() =>
-                    navigation.navigate("Mô tả", {
+                    navigation.navigate(DESC, {
                       sid: item.sid,
                     })
                   }

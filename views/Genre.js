@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListCategory } from "../action/categoryAction";
+import { GENRE_DETAIL } from '../constant/view.js';
 function Genre({ navigation }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,15 +35,15 @@ function Genre({ navigation }) {
                     width: 170,
                     height: 60,
                     backgroundColor: "#CCCCCC",
-                    marginVertical: 15,
-                    marginHorizontal: 15,
+                    marginVertical: 8,
+                    marginHorizontal: 8,
                     borderRadius: 5,
                     flexDirection: "row",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                   onPress={() =>
-                    navigation.navigate("Chi tiết thể loại", {
+                    navigation.navigate(GENRE_DETAIL, {
                       sid: item.sid,
                     })
                   }

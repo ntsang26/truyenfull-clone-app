@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { DESC, SEARCH } from '../constant/view.js';
 import FindStories from "../views/FindStories";
 import Description from "./Description";
 
@@ -7,14 +8,14 @@ const SearchScreen = () => {
   return (
     <SearchStack.Navigator>
       <SearchStack.Screen
-        name="Tìm kiếm "
+        name={SEARCH}
         component={FindStories}
         options={{
           headerShown: true,
         }}
       />
       <SearchStack.Screen
-        name="Mô tả"
+        name={DESC}
         component={Description}
         options={{
           headerShown: true,
