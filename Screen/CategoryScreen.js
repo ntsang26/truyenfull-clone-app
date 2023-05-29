@@ -1,29 +1,30 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { DESC, GENRE, GENRE_DETAIL } from '../constant/view.js';
 // import Home from "../views/Home";
 // import Description from "./Description";
 import Genre from "../views/Genre";
-import categoryDetails from "./categoryDetails";
+import CategoryDetails from "./CategoryDetails";
 import Description from "./Description";
 const CategoryScreen = () => {
   const CategoryStack = createNativeStackNavigator();
   return (
     <CategoryStack.Navigator>
       <CategoryStack.Screen
-        name="Thể loại"
+        name={GENRE}
         component={Genre}
         options={{
           headerShown: true,
         }}
       />
       <CategoryStack.Screen
-        name="Chi tiết thể loại"
-        component={categoryDetails}
+        name={GENRE_DETAIL}
+        component={CategoryDetails}
         options={{
           headerShown: true,
         }}
       />
       <CategoryStack.Screen
-        name="Mô tả"
+        name={DESC}
         component={Description}
         options={{
           headerShown: true,

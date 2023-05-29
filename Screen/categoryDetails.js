@@ -1,10 +1,9 @@
-import { filter } from "domutils";
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { DESC } from '../constant/view.js';
 
-const categoryDetails = ({ route, navigation }) => {
+const CategoryDetails = ({ route, navigation }) => {
   const { sid } = route.params;
 
   const list = useSelector((state) => state);
@@ -79,4 +78,4 @@ const categoryDetails = ({ route, navigation }) => {
     </ScrollView>
   );
 };
-export default categoryDetails;
+export default CategoryDetails;

@@ -50,7 +50,6 @@ function Home({ navigation }) {
                       style={{ width: 120, height: 200, borderRadius: 10 }}
                     />
                   </View>
-
                   <View style={{ marginLeft: 10, flexWrap: "wrap" }}>
                     <Text
                       style={{
