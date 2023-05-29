@@ -1,6 +1,15 @@
-import { View, Text, Image, ScrollView, useWindowDimensions } from "react-native";
-import { useSelector } from "react-redux";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
+
+import { useDispatch, useSelector } from "react-redux";
 import RenderHtml from "react-native-render-html";
+import { getListChap } from "../action/chapAction";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Description = ({ route, navigation }) => {
   const { sid } = route.params;
@@ -11,7 +20,8 @@ const Description = ({ route, navigation }) => {
   const source = {
     html: findStories.desc,
   };
-  const contentWidth = useWindowDimensions()
+  const contentWidth = useWindowDimensions();
+  const dispatch = useDispatch();
   return (
     <ScrollView>
       <View style={{ marginTop: 100 }}>
@@ -49,14 +59,21 @@ const Description = ({ route, navigation }) => {
               borderRadius: 5,
             }}
           >
-            <Text style={{ fontSize: 19 }}>Đọc Truyện </Text>
+            <TouchableOpacity
+              onPress={() => {
+                // console.log("id của truyện là =====", sid);
+                dispatch(getListChap(sid));
+                navigation.navigate("Đọc truyện", {
+                  sid: sid,
+                });
+              }}
+            >
+              <Text style={{ fontSize: 19 }}>Đọc Truyện </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={{ paddingHorizontal: 15 }}>
-          <RenderHtml
-            source={source}
-            contentWidth={contentWidth}
-          />
+          <RenderHtml source={source} contentWidth={contentWidth} />
         </View>
       </View>
     </ScrollView>

@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Chap from "../views/Chap";
 import Home from "../views/Home";
 import Description from "./Description";
 const HomeScreen = () => {
@@ -15,6 +16,13 @@ const HomeScreen = () => {
       <HomeStack.Screen
         name="Mô tả"
         component={Description}
+        options={{
+          headerShown: true,
+        }}
+      />
+      <HomeStack.Screen
+        name="Đọc truyện"
+        component={Chap}
         options={{
           headerShown: true,
         }}
