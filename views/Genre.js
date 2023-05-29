@@ -1,11 +1,9 @@
-// THỂ LOẠI
-import { View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListCategory } from "../action/categoryAction";
 import { GENRE_DETAIL } from '../constant/view.js';
+
 function Genre({ navigation }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -13,7 +11,6 @@ function Genre({ navigation }) {
   }, []);
   const list = useSelector((state) => state);
   const data = list.category.posts;
-  // console.log("category data ========", data);
   return (
     <ScrollView>
       <View
@@ -27,31 +24,30 @@ function Genre({ navigation }) {
         {data == undefined
           ? ""
           : data.map((item) => {
-              // console.log("==========item la ====", item);
-              return (
-                <TouchableOpacity
-                  key={item.sid}
-                  style={{
-                    width: 170,
-                    height: 60,
-                    backgroundColor: "#CCCCCC",
-                    marginVertical: 8,
-                    marginHorizontal: 8,
-                    borderRadius: 5,
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={() =>
-                    navigation.navigate(GENRE_DETAIL, {
-                      sid: item.sid,
-                    })
-                  }
-                >
-                  <Text style={{ fontSize: 19 }}>{item.name}</Text>
-                </TouchableOpacity>
-              );
-            })}
+            return (
+              <TouchableOpacity
+                key={item.sid}
+                style={{
+                  width: 170,
+                  height: 60,
+                  backgroundColor: "#CCCCCC",
+                  marginVertical: 8,
+                  marginHorizontal: 8,
+                  borderRadius: 5,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() =>
+                  navigation.navigate(GENRE_DETAIL, {
+                    sid: item.sid,
+                  })
+                }
+              >
+                <Text style={{ fontSize: 19 }}>{item.name}</Text>
+              </TouchableOpacity>
+            );
+          })}
       </View>
     </ScrollView>
   );

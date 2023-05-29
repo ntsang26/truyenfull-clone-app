@@ -1,7 +1,5 @@
 // Tìm kiếm truyện
-import { View, Text, Button, TextInput, Image, ScrollView } from "react-native"
-import { NavigationContainer } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { View, Text, TextInput, Image, ScrollView } from "react-native"
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import { TouchableOpacity } from "react-native-gesture-handler"
@@ -11,15 +9,18 @@ import unidecode from 'unidecode'
 
 function FindStories({ navigation }) {
   const [content, setContent] = useState("")
-  const [search, setSearch] = useState([])
+  const [foundStory, setFoundStory] = useState([])
   const list = useSelector((state) => state)
   const data = list.posts.posts || []
   const handleSearch = () => {
-    if (!content) return
+    if (!content) {
+      setFoundStory([])
+      return
+    }
     const findStories = data.filter((item) =>
       convertStr(item.title).includes(convertStr(content)),
     )
-    setSearch(findStories)
+    setFoundStory(findStories)
     setContent("")
   }
 
@@ -28,18 +29,19 @@ function FindStories({ navigation }) {
       <View
         style={{
           padding: 10,
+          paddingHorizontal: 20,
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
           alignItems: "center",
         }}
       >
         <TextInput
-          style={{ height: 40, borderBottomWidth: 1.0, width: 230 }}
+          style={{ height: 40, borderBottomWidth: 1.0, flex: 1, marginEnd: 20 }}
           placeholder="Nhập vào tên truyện"
           onChangeText={(newText) => setContent(newText)}
           defaultValue={content}
         />
-        <TouchableOpacity style={{}} onPress={handleSearch}>
+        <TouchableOpacity onPress={handleSearch}>
           <Text style={{ fontSize: 17 }}>Tìm kiếm</Text>
         </TouchableOpacity>
       </View>
@@ -51,9 +53,9 @@ function FindStories({ navigation }) {
           marginTop: 50,
         }}
       >
-        {search === undefined
+        {foundStory === undefined
           ? ""
-          : search.map((item) => {
+          : foundStory.map((item) => {
             return (
               <TouchableOpacity
                 key={item.sid}
