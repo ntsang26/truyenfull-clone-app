@@ -10,6 +10,7 @@ import HomeScreen from "./screen/HomeScreen";
 import CategoryScreen from "./screen/CategoryScreen";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import SearchScreen from "./screen/SearchScreen";
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -20,6 +21,7 @@ function App() {
           screenOptions={{
             headerStyle: {
               backgroundColor: "#f4511e",
+              // headerShown: false,
             },
             headerTintColor: "#fff",
             headerTitleStyle: {
@@ -48,6 +50,7 @@ function App() {
             name="Khám phá"
             component={Explore}
             options={{
+              headerShown: false,
               tabBarLabel: "Khám phá",
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="find" color={color} size={size} />
@@ -58,6 +61,7 @@ function App() {
             name="Thể loại"
             component={CategoryScreen}
             options={{
+              headerShown: false,
               tabBarLabel: "Thể loại",
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="book" color={color} size={size} />
@@ -66,8 +70,9 @@ function App() {
           />
           <Tab.Screen
             name="Tìm kiếm truyện"
-            component={FindStories}
+            component={SearchScreen}
             options={{
+              headerShown: false,
               tabBarLabel: "Tìm kiếm",
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="search1" color={color} size={size} />
@@ -78,6 +83,7 @@ function App() {
             name="Truyện offline"
             component={Offline}
             options={{
+              headerShown: false,
               tabBarLabel: "Truyện offline",
               tabBarIcon: ({ color, size }) => (
                 <AntDesign name="arrowdown" color={color} size={size} />

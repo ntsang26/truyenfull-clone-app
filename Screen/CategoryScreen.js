@@ -2,6 +2,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import Home from "../views/Home";
 // import Description from "./Description";
 import Genre from "../views/Genre";
+import categoryDetails from "./categoryDetails";
+import Description from "./Description";
 const CategoryScreen = () => {
   const CategoryStack = createNativeStackNavigator();
   return (
@@ -10,16 +12,23 @@ const CategoryScreen = () => {
         name="Thể loại"
         component={Genre}
         options={{
-          headerShown: false,
+          headerShown: true,
         }}
       />
-      {/* <HomeStack.Screen
+      <CategoryStack.Screen
+        name="Chi tiết thể loại"
+        component={categoryDetails}
+        options={{
+          headerShown: true,
+        }}
+      />
+      <CategoryStack.Screen
         name="Mô tả"
         component={Description}
         options={{
-          headerShown: false
+          headerShown: true,
         }}
-      /> */}
+      />
     </CategoryStack.Navigator>
   );
 };

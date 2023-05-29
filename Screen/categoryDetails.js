@@ -1,47 +1,18 @@
-// Tìm kiếm truyện
-import { View, Text, Button, TextInput, Image, ScrollView } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import { filter } from "domutils";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import moment from "moment";
-// const handleSearch = (content) => {
 
-// };
-function FindStories({ navigation }) {
-  const [content, setContent] = useState("");
-  const [search, setSearch] = useState([]);
+const categoryDetails = ({ route, navigation }) => {
+  const { sid } = route.params;
+
   const list = useSelector((state) => state);
   const data = list.posts.posts;
-  // console.log("tim kiem truyen la ======", search);
-  const handleSearch = () => {
-    // console.log("data ", data);
-    const findStories = data.filter((item) => item.title == content);
-    setSearch(findStories);
-    setContent("");
-  };
+
+  const filterStories = data.filter((item) => sid === item.categoryId);
+
   return (
     <ScrollView>
-      <View
-        style={{
-          padding: 10,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <TextInput
-          style={{ height: 40, borderBottomWidth: 1.0, width: 230 }}
-          placeholder="nhập vào tên truyện"
-          onChangeText={(newText) => setContent(newText)}
-          defaultValue={content}
-        />
-        <TouchableOpacity style={{}} onPress={handleSearch}>
-          <Text style={{ fontSize: 17 }}>Tìm kiếm</Text>
-        </TouchableOpacity>
-      </View>
-
       <View
         style={{
           flexDirection: "column",
@@ -49,9 +20,9 @@ function FindStories({ navigation }) {
           marginTop: 50,
         }}
       >
-        {search === undefined
+        {filterStories == undefined
           ? ""
-          : search.map((item) => {
+          : filterStories.map((item) => {
               return (
                 <TouchableOpacity
                   key={item.sid}
@@ -106,5 +77,5 @@ function FindStories({ navigation }) {
       </View>
     </ScrollView>
   );
-}
-export default FindStories;
+};
+export default categoryDetails;

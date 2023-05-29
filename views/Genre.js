@@ -12,7 +12,7 @@ function Genre({ navigation }) {
   }, []);
   const list = useSelector((state) => state);
   const data = list.category.posts;
-  console.log("category data ========", data);
+  // console.log("category data ========", data);
   return (
     <ScrollView>
       <View
@@ -26,6 +26,7 @@ function Genre({ navigation }) {
         {data == undefined
           ? ""
           : data.map((item) => {
+              // console.log("==========item la ====", item);
               return (
                 <TouchableOpacity
                   key={item.sid}
@@ -40,6 +41,11 @@ function Genre({ navigation }) {
                     justifyContent: "center",
                     alignItems: "center",
                   }}
+                  onPress={() =>
+                    navigation.navigate("Chi tiết thể loại", {
+                      sid: item.sid,
+                    })
+                  }
                 >
                   <Text style={{ fontSize: 19 }}>{item.name}</Text>
                 </TouchableOpacity>

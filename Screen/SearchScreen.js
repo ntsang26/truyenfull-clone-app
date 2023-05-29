@@ -1,25 +1,26 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "../views/Home";
+import FindStories from "../views/FindStories";
 import Description from "./Description";
-const HomeScreen = () => {
-  const HomeStack = createNativeStackNavigator();
+
+const SearchScreen = () => {
+  const SearchStack = createNativeStackNavigator();
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="Trang chủ"
-        component={Home}
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="Tìm kiếm "
+        component={FindStories}
         options={{
           headerShown: true,
         }}
       />
-      <HomeStack.Screen
+      <SearchStack.Screen
         name="Mô tả"
         component={Description}
         options={{
           headerShown: true,
         }}
       />
-    </HomeStack.Navigator>
+    </SearchStack.Navigator>
   );
 };
-export default HomeScreen;
+export default SearchScreen;
