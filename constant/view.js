@@ -1,8 +1,0 @@
-export const HOME = "Trang chủ"
-export const EXPLORE = "Khám phá"
-export const GENRE = "Thể loại"
-export const SEARCH = "Tìm Kiếm"
-export const OFFLINE = "Truyện offline"
-export const GENRE_DETAIL = "Chi tiết thể loại"
-export const DESC = "Mô tả"
-export const READ_STORY = "Đọc truyện"
