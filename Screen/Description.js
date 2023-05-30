@@ -20,6 +20,13 @@ const Description = ({ route, navigation }) => {
   const source = {
     html: findStories.desc,
   };
+  let chap = [];
+  const totalChap = findStories.chap;
+  for (let i = 1; i <= totalChap; i++) {
+    chap.push(i);
+    // console.log("i ===", i);
+  }
+  console.log("số chap la =====", chap);
   const contentWidth = useWindowDimensions();
   const dispatch = useDispatch();
   return (
@@ -63,9 +70,9 @@ const Description = ({ route, navigation }) => {
               onPress={() => {
                 // console.log("id của truyện là =====", sid);
                 dispatch(getListChap(sid));
-                navigation.navigate("Đọc truyện", {
-                  sid: sid,
-                });
+                // navigation.navigate("Đọc truyện", {
+                //   sid: sid,
+                // });
               }}
             >
               <Text style={{ fontSize: 19 }}>Đọc Truyện </Text>
@@ -75,6 +82,25 @@ const Description = ({ route, navigation }) => {
         <View style={{ paddingHorizontal: 15 }}>
           <RenderHtml source={source} contentWidth={contentWidth} />
         </View>
+      </View>
+      <View style={{ paddingVertical: 20 }}>
+        <Text style={{ fontSize: 17, marginBottom: 20, paddingHorizontal: 20 }}>
+          Danh sách các chương
+        </Text>
+        {chap.map((item) => (
+          <Text
+            style={{
+              fontSize: 17,
+              paddingHorizontal: 20,
+              paddingBottom: 15,
+              borderColor: "black",
+              borderWidth: 1,
+            }}
+          >
+            {" "}
+            chương {item}
+          </Text>
+        ))}
       </View>
     </ScrollView>
   );
