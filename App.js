@@ -55,17 +55,6 @@ function App() {
               }}
             />
             <Tab.Screen
-              name={EXPLORE}
-              component={Explore}
-              options={{
-                headerShown: false,
-                tabBarLabel: EXPLORE,
-                tabBarIcon: ({ color, size }) => (
-                  <AntDesign name="find" color={color} size={size} />
-                ),
-              }}
-            />
-            <Tab.Screen
               name={GENRE}
               component={CategoryScreen}
               options={{

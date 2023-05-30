@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Chap from "../views/Chap";
-import { DESC, HOME } from '../constant/view.js';
+import { DESC, HOME, READ_STORY } from '../constant/view.js';
 import Home from "../views/Home";
 import Description from "./Description";
 const HomeScreen = () => {
@@ -22,7 +22,7 @@ const HomeScreen = () => {
         }}
       />
       <HomeStack.Screen
-        name="Đọc truyện"
+        name={READ_STORY}
         component={Chap}
         options={{
           headerShown: true,

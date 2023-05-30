@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RenderHtml from "react-native-render-html";
 import { getListChap } from "../action/chapAction";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { READ_STORY } from '../constant/view.js';
 
 const Description = ({ route, navigation }) => {
   const { sid } = route.params;
@@ -20,15 +21,16 @@ const Description = ({ route, navigation }) => {
   const source = {
     html: findStories.desc,
   };
+
   let chap = [];
   const totalChap = findStories.chap;
-  for (let i = 1; i <= totalChap; i++) {
+  for (let i = 1;i <= totalChap;i++) {
     chap.push(i);
-    // console.log("i ===", i);
   }
-  console.log("số chap la =====", chap);
+
   const contentWidth = useWindowDimensions();
   const dispatch = useDispatch();
+
   return (
     <ScrollView>
       <View style={{ marginTop: 100 }}>
@@ -68,11 +70,10 @@ const Description = ({ route, navigation }) => {
           >
             <TouchableOpacity
               onPress={() => {
-                // console.log("id của truyện là =====", sid);
                 dispatch(getListChap(sid));
-                // navigation.navigate("Đọc truyện", {
-                //   sid: sid,
-                // });
+                navigation.navigate(READ_STORY, {
+                  sid: sid,
+                });
               }}
             >
               <Text style={{ fontSize: 19 }}>Đọc Truyện </Text>
@@ -89,6 +90,7 @@ const Description = ({ route, navigation }) => {
         </Text>
         {chap.map((item) => (
           <Text
+            key={item.sid}
             style={{
               fontSize: 17,
               paddingHorizontal: 20,
