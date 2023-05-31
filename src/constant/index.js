@@ -4,5 +4,6 @@ export const VIEW = {
   SEARCH: "Tìm kiếm",
   OFFLINE: "Truyện Offline",
   LIST_STORY: "Danh sách",
-  STORY_DETAIL: "Chi tiết"
+  STORY_DETAIL: "Chi tiết",
+  LIST_STORY_BY_GENRE: "Danh sách truyện"
 }

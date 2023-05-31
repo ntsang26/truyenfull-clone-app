@@ -15,6 +15,7 @@ import {
 } from "../redux/slice/dataSlice.js"
 import SplashScreen from "./SplashScreen.js"
 import api from "../../services/api.js"
+import SearchScreen from "./SearchScreen.js"
 
 const Tab = createBottomTabNavigator()
 
@@ -103,14 +104,10 @@ const HomeScreen = ({ navigation }) => {
 					/>
 					<Tab.Screen
 						name={VIEW.SEARCH}
-						component={GenreScreen}
+						component={SearchScreen}
 						options={{
 							tabBarIcon: ({ color, size }) => (
-								<Ionicons
-									name="ios-search-outline"
-									size={size}
-									color={color}
-								/>
+								<Ionicons name="ios-search-outline" size={size} color={color} />
 							),
 						}}
 					/>

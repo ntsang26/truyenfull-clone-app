@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react"
 import {
-	Button,
 	Image,
 	ScrollView,
 	StyleSheet,
@@ -7,7 +7,6 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native"
-import React, { useEffect, useState } from "react"
 import { VIEW } from "../../constant/index.js"
 import { useSelector } from "react-redux"
 import {
@@ -15,30 +14,57 @@ import {
 	selectCategory,
 	selectStory,
 } from "../../redux/slice/dataSlice.js"
-import Ionicons from "react-native-vector-icons/Ionicons"
+import AntDesign from "react-native-vector-icons/AntDesign"
+import moment from "moment"
+import RenderHTML, { useContentWidth } from "react-native-render-html"
+import { api } from "../../../services"
 
 const StoryDetails = ({ navigation, route }) => {
 	let { sid } = route.params
-	const listStory = useSelector(selectStory)
-	const listAuthor = useSelector(selectAuthor)
-	const listCategory = useSelector(selectCategory)
+	const listStory = useSelector(selectStory) || []
+	const listAuthor = useSelector(selectAuthor) || []
+	const listCategory = useSelector(selectCategory) || []
 	const [story, setStory] = useState({})
+	const [author, setAuthor] = useState({})
+	const [category, setCategory] = useState({})
+	const [chaps, setChaps] = useState([])
+	const [isCollapse, setIsCollapse] = useState(false)
+
+	const contentWidth = useContentWidth()
 
 	useEffect(() => {
 		if (listStory.length !== 0) {
 			let data = listStory.find((item) => item.sid === sid) || {}
 			if (data) {
-				let newData = { ...data }
-				let author = listAuthor.find((item) => item.sid === story.authorId)
-				let category = listCategory.find(
-					(item) => item.sid === story.categoryId,
-				)
-				newData.author = author ? author.name : "Đang cập nhật"
-				newData.category = category ? category.name : "Đang cập nhật"
-				setStory(newData)
+				setStory(data)
 			}
 		}
-	}, [listAuthor, listCategory])
+	}, [sid])
+
+	useEffect(() => {
+		const getChaps = async () => {
+			try {
+				let opt = {
+					queryInput: {
+						storyId: sid,
+					},
+					sort: { createdAt: -1 },
+				}
+				let rs = await api.getChap(opt)
+				if (rs && rs.errorCode === 0) setChaps(rs.data)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		getChaps()
+	}, [])
+
+	useEffect(() => {
+		if (listAuthor && listCategory) {
+			setAuthor(listAuthor.find((item) => item.sid === story.authorId))
+			setCategory(listCategory.find((item) => item.sid === story.categoryId))
+		}
+	}, [sid, listAuthor, listCategory, story])
 
 	return (
 		<View style={styles.container}>
@@ -47,29 +73,101 @@ const StoryDetails = ({ navigation, route }) => {
 					<Image source={{ uri: story.image }} style={styles.storyImage} />
 					<Text style={styles.storyTitle}>{story.title}</Text>
 				</View>
-				<View style={{ ...styles.infoBox, alignItems: "flex-start" }}>
+				<View style={{ ...styles.infoBox, alignItems: "flex-start", gap: 10 }}>
 					<Text>
 						Tác giả:{" "}
 						<Text style={{ fontWeight: 500, color: "#1e90ff" }}>
-							{story.author}
+							{author?.name || "Đang cập nhật"}
 						</Text>
 					</Text>
 					<Text>
 						Thể loại:{" "}
 						<Text style={{ fontWeight: 500, color: "#1e90ff" }}>
-							{story.category}
+							{category?.name || "Đang cập nhật"}
+						</Text>
+					</Text>
+					<Text>
+						Số chương: <Text style={{ fontWeight: 500 }}>{story?.chaps}</Text>
+					</Text>
+					<Text>
+						Ngày đăng:{" "}
+						<Text style={{ fontWeight: 500 }}>
+							{moment(story?.createdAt).format("hh:mm:ss DD-MM-yyyy")}
+						</Text>
+					</Text>
+					<Text>
+						Ngày cập nhật:{" "}
+						<Text style={{ fontWeight: 500 }}>
+							{moment(story?.updatedAt).format("hh:mm:ss DD-MM-yyyy")}
 						</Text>
 					</Text>
 				</View>
+				<View style={{ ...styles.infoBox }}>
+					<Text
+						style={isCollapse ? styles.storyDescUnCll : styles.storyDescCll}
+					>
+						<RenderHTML
+							contentWidth={contentWidth}
+							source={{ html: story?.desc }}
+						/>
+					</Text>
+					<Text
+						style={{ fontWeight: 500, color: "#1e90ff" }}
+						onPress={() => setIsCollapse(!isCollapse)}
+					>
+						{isCollapse ? "Thu gọn" : "Xem thêm"}
+					</Text>
+				</View>
+				<View
+					style={{
+						flexDirection: "row",
+						justifyContent: "space-between",
+						alignItems: "center",
+						marginBottom: 10,
+					}}
+				>
+					<Text style={{ fontWeight: 500 }}>Các số mới nhất</Text>
+					<TouchableOpacity>
+						<Text style={{ fontWeight: 500, color: "#1e90ff", fontSize: 14 }}>
+							Xem toàn bộ
+						</Text>
+					</TouchableOpacity>
+				</View>
+				{chaps.slice(0, 5).map((item) => (
+					<TouchableOpacity key={item.sid}>
+						<View
+							style={{
+								...styles.infoBox,
+								alignItems: "flex-start",
+								marginBottom: 10,
+							}}
+						>
+							<Text>{item.title}</Text>
+						</View>
+					</TouchableOpacity>
+				))}
 			</ScrollView>
 			<View style={styles.actions}>
-				<TouchableOpacity
-					style={styles.back}
-					onPress={() => navigation.navigate(VIEW.HOME)}
-				>
+				<TouchableOpacity onPress={() => navigation.goBack()}>
 					<Text>
-						<Ionicons name="ios-close-outline" size={30} color={"#fff"} />
+						<AntDesign name="close" size={40} color={"#1e90ff"} />
 					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{
+						backgroundColor: "#1e90ff",
+						paddingHorizontal: 20,
+						paddingVertical: 10,
+						borderRadius: 5,
+					}}
+					// onPress={() => navigation.navigate(VIEW.HOME)}
+				>
+					<Text style={{ fontSize: 20, color: "white", fontWeight: 500 }}>
+						Đọc truyện
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity>
+					<AntDesign name="download" size={40} color={"#1e90ff"} />
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -82,21 +180,19 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
-		paddingHorizontal: 20,
 	},
 	actions: {
-		justifyContent: "center",
+		flexDirection: "row",
+		justifyContent: "space-evenly",
 		alignItems: "center",
+		height: 90,
 	},
 	back: {
-		bottom: 50,
-		backgroundColor: "#1e90ff",
-		padding: 10,
-		borderRadius: 100,
-		flexDirection: "row",
+		color: "#1e90ff",
 	},
 	storyDetail: {
 		marginTop: 50,
+		paddingHorizontal: 20,
 	},
 	infoBox: {
 		backgroundColor: "#eee",
@@ -105,7 +201,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		borderRadius: 5,
-		marginTop: 20,
+		marginBottom: 20,
 	},
 	storyImage: {
 		width: 200,
@@ -115,5 +211,12 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: 500,
 		marginTop: 20,
+		textAlign: "center",
+	},
+	storyDescCll: {
+		height: 150,
+	},
+	storyDescUnCll: {
+		height: "auto",
 	},
 })
