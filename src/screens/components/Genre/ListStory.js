@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 	},
 	storyTouch: {
 		marginVertical: 20,
-		backgroundColor: "#EEEEEE",
+		backgroundColor: "#f1f2f6",
 		borderRadius: 10,
 	},
 	storyItem: {

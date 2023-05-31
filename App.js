@@ -6,7 +6,7 @@ import ListStory from "./src/screens/components/Genre/ListStory.js"
 
 import { Provider } from "react-redux"
 import { store } from "./src/redux/store"
-import HomeScreen from "./src/screens/HomeScreen.js"
+import { HomeScreen } from "./src/screens"
 const Stack = createStackNavigator()
 
 export default function App() {

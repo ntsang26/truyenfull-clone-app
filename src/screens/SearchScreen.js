@@ -6,7 +6,7 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { TextInput } from "react-native-gesture-handler"
 import { VIEW } from "../constant/index.js"
 import moment from "moment"
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
 	},
 	storyTouch: {
 		marginVertical: 20,
-		backgroundColor: "#EEE",
+		backgroundColor: "#f1f2f6",
 		borderRadius: 10,
 	},
 	storyItem: {

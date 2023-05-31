@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 	container: { paddingHorizontal: 20, backgroundColor: "#FFF" },
 	storyTouch: {
 		marginVertical: 20,
-		backgroundColor: "#EEEEEE",
+		backgroundColor: "#f1f2f6",
 		borderRadius: 10,
 	},
 	storyItem: {

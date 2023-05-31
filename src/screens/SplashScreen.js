@@ -4,7 +4,7 @@ import React from "react"
 const SplashScreen = () => {
 	return (
 		<View style={styles.container}>
-			<Text>SplashScreen</Text>
+			<Text>Loading...</Text>
 		</View>
 	)
 }

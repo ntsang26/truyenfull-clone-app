@@ -7,7 +7,6 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native"
-import { VIEW } from "../../constant/index.js"
 import { useSelector } from "react-redux"
 import {
 	selectAuthor,
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 	},
 	infoBox: {
-		backgroundColor: "#eee",
+		backgroundColor: "#f1f2f6",
 		paddingHorizontal: 20,
 		paddingVertical: 10,
 		justifyContent: "center",

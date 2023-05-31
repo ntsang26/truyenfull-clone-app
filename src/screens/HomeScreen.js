@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import GenreScreen from "./GenreScreen.js"
+import SplashScreen from "./SplashScreen.js"
+import SearchScreen from "./SearchScreen.js"
+import OfflineScreen from "./OfflineScreen.js"
 import { VIEW } from "../constant/index.js"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import ListStory from "./components/Home/ListStory.js"
@@ -13,9 +16,7 @@ import {
 	setCategory,
 	setStory,
 } from "../redux/slice/dataSlice.js"
-import SplashScreen from "./SplashScreen.js"
 import api from "../../services/api.js"
-import SearchScreen from "./SearchScreen.js"
 
 const Tab = createBottomTabNavigator()
 
@@ -113,7 +114,7 @@ const HomeScreen = ({ navigation }) => {
 					/>
 					<Tab.Screen
 						name={VIEW.OFFLINE}
-						component={GenreScreen}
+						component={OfflineScreen}
 						options={{
 							tabBarIcon: ({ color, size }) => (
 								<Ionicons
