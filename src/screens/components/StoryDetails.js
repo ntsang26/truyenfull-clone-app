@@ -17,6 +17,7 @@ import AntDesign from "react-native-vector-icons/AntDesign"
 import moment from "moment"
 import RenderHTML, { useContentWidth } from "react-native-render-html"
 import { api } from "../../../services"
+import { VIEW } from "../../constant/index.js"
 
 const StoryDetails = ({ navigation, route }) => {
 	let { sid } = route.params
@@ -126,14 +127,23 @@ const StoryDetails = ({ navigation, route }) => {
 					}}
 				>
 					<Text style={{ fontWeight: 500 }}>Các số mới nhất</Text>
-					<TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate(VIEW.LIST_CHAP_BY_STORY, { chaps })
+						}}
+					>
 						<Text style={{ fontWeight: 500, color: "#1e90ff", fontSize: 14 }}>
 							Xem toàn bộ
 						</Text>
 					</TouchableOpacity>
 				</View>
-				{chaps.slice(0, 5).map((item) => (
-					<TouchableOpacity key={item.sid}>
+				{chaps.slice(0, 5).map((item, index) => (
+					<TouchableOpacity
+						key={item.sid}
+						onPress={() =>
+							navigation.navigate(VIEW.READ_STORY, { chaps, chapIndex: index })
+						}
+					>
 						<View
 							style={{
 								...styles.infoBox,
@@ -159,7 +169,9 @@ const StoryDetails = ({ navigation, route }) => {
 						paddingVertical: 10,
 						borderRadius: 5,
 					}}
-					// onPress={() => navigation.navigate(VIEW.HOME)}
+					onPress={() =>
+						navigation.navigate(VIEW.READ_STORY, { storyId: story.sid })
+					}
 				>
 					<Text style={{ fontSize: 20, color: "white", fontWeight: 500 }}>
 						Đọc truyện

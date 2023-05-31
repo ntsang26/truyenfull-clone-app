@@ -15,9 +15,7 @@ import moment from "moment"
 const ListStory = ({ navigation, route }) => {
 	const { sid, name } = route.params
 	let listStory = useSelector(selectStory)
-	const [data, setData] = useState(
-		listStory.filter((item) => item.categoryId === sid) || [],
-	)
+	const data = listStory.filter((item) => item.categoryId === sid) || []
 
 	useEffect(() => {
 		navigation.setOptions({
