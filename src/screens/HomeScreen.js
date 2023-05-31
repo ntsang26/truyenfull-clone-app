@@ -8,8 +8,14 @@ import { VIEW } from "../constant/index.js"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import ListStory from "./components/Home/ListStory.js"
 import { useDispatch } from "react-redux"
-import { setAuthor, setCategory, setStory } from "../redux/slice/dataSlice.js"
+import {
+	setAuthor,
+	setCategory,
+	setDataOffline,
+	setStory,
+} from "../redux/slice/dataSlice.js"
 import api from "../../services/api.js"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const Tab = createBottomTabNavigator()
 
@@ -30,7 +36,12 @@ const HomeScreen = ({ navigation }) => {
 
 	const fetchData = async () => {
 		try {
-			await Promise.all([fetchStory(), fetchCategory(), fetchAuthor()])
+			await Promise.all([
+				fetchStory(),
+				fetchCategory(),
+				fetchAuthor(),
+				fetchDataOffline(),
+			])
 			setIsLoading(false)
 		} catch (error) {
 			console.error(error)
@@ -53,6 +64,39 @@ const HomeScreen = ({ navigation }) => {
 		const rs = await api.getAuthor()
 		if (rs.errorCode !== 0) return
 		dispatch(setAuthor(rs.data))
+	}
+
+	const fetchDataOffline = async () => {
+		const allKey = (await getAllKeys()) || []
+		const storageValues = (await getStorageValues(allKey)) || []
+		dispatch(setDataOffline(storageValues))
+	}
+
+	const getAllKeys = async () => {
+		let keys = []
+		try {
+			keys = await AsyncStorage.getAllKeys()
+		} catch (e) {
+			console.log(e)
+			throw e
+		}
+		return keys
+	}
+
+	const getStorageValues = async (allKey) => {
+		try {
+			let result = []
+			for (const key of allKey) {
+				const jsonValue = await AsyncStorage.getItem(key)
+				if (jsonValue !== null) {
+					result.push(JSON.parse(jsonValue))
+				}
+			}
+			return result
+		} catch (e) {
+			console.log(e)
+			throw e
+		}
 	}
 
 	return (

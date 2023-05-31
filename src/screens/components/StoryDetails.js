@@ -6,24 +6,31 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
+	Alert,
 } from "react-native"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import {
 	selectAuthor,
 	selectCategory,
+	selectDataOffline,
 	selectStory,
+	setDataOffline,
 } from "../../redux/slice/dataSlice.js"
 import AntDesign from "react-native-vector-icons/AntDesign"
 import moment from "moment"
 import RenderHTML, { useContentWidth } from "react-native-render-html"
 import { api } from "../../../services"
 import { VIEW } from "../../constant/index.js"
+import { cloneDeep } from "lodash"
 
 const StoryDetails = ({ navigation, route }) => {
-	let { sid } = route.params
+	const dispatch = useDispatch()
+	let { sid, offlineStory = {}, offlineChaps = [] } = route.params
 	const listStory = useSelector(selectStory) || []
 	const listAuthor = useSelector(selectAuthor) || []
 	const listCategory = useSelector(selectCategory) || []
+	const dataOffline = useSelector(selectDataOffline) || []
 	const [story, setStory] = useState({})
 	const [author, setAuthor] = useState({})
 	const [category, setCategory] = useState({})
@@ -33,10 +40,14 @@ const StoryDetails = ({ navigation, route }) => {
 	const contentWidth = useContentWidth()
 
 	useEffect(() => {
-		if (listStory.length !== 0) {
-			let data = listStory.find((item) => item.sid === sid) || {}
-			if (data) {
-				setStory(data)
+		if (offlineStory?.sid) {
+			setStory(offlineStory)
+		} else {
+			if (listStory.length !== 0) {
+				let data = listStory.find((item) => item.sid === sid) || {}
+				if (data) {
+					setStory(data)
+				}
 			}
 		}
 	}, [sid])
@@ -56,8 +67,9 @@ const StoryDetails = ({ navigation, route }) => {
 				console.log(error)
 			}
 		}
-		getChaps()
-	}, [])
+		if (offlineChaps.length) setChaps(offlineChaps)
+		else getChaps()
+	}, [sid])
 
 	useEffect(() => {
 		if (listAuthor && listCategory) {
@@ -65,6 +77,44 @@ const StoryDetails = ({ navigation, route }) => {
 			setCategory(listCategory.find((item) => item.sid === story.categoryId))
 		}
 	}, [sid, listAuthor, listCategory, story])
+
+	const handleDownloadStory = async (data, itemKey) => {
+		try {
+			const newDataOffline = [...dataOffline]
+			const saveData = { ...data }
+			saveData.storyChaps = chaps
+			newDataOffline.push(saveData)
+			const jsonValue = JSON.stringify(cloneDeep(saveData))
+			await AsyncStorage.setItem(itemKey, jsonValue)
+			dispatch(setDataOffline(newDataOffline))
+			Alert.alert("Thông báo", "Tải truyện thành công!")
+		} catch (e) {
+			console.log(e)
+			throw e
+		}
+	}
+
+	const onDownload = (story) => {
+		Alert.alert(
+			"Thông báo",
+			`Bạn muốn tải truyện ${story.title} đúng không ?`,
+			[
+				{
+					text: "Không",
+					onPress: () => {
+						return
+					},
+					style: "cancel",
+				},
+				{
+					text: "Đúng",
+					onPress: async () => {
+						await handleDownloadStory(story, story.sid)
+					},
+				},
+			],
+		)
+	}
 
 	return (
 		<View style={styles.container}>
@@ -177,9 +227,11 @@ const StoryDetails = ({ navigation, route }) => {
 						Đọc truyện
 					</Text>
 				</TouchableOpacity>
-				<TouchableOpacity>
-					<AntDesign name="download" size={40} color={"#1e90ff"} />
-				</TouchableOpacity>
+				{!offlineStory?.sid && (
+					<TouchableOpacity onPress={() => onDownload(story)}>
+						<AntDesign name="download" size={40} color={"#1e90ff"} />
+					</TouchableOpacity>
+				)}
 			</View>
 		</View>
 	)

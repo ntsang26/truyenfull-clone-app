@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
 	},
 	storyTitle: {
 		fontSize: 18,
-		width: 210,
+		width: 200,
 	},
 })
