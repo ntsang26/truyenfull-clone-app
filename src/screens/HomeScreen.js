@@ -7,24 +7,14 @@ import OfflineScreen from "./OfflineScreen.js"
 import { VIEW } from "../constant/index.js"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import ListStory from "./components/Home/ListStory.js"
-import { useDispatch, useSelector } from "react-redux"
-import {
-	selectAuthor,
-	selectCategory,
-	selectStory,
-	setAuthor,
-	setCategory,
-	setStory,
-} from "../redux/slice/dataSlice.js"
+import { useDispatch } from "react-redux"
+import { setAuthor, setCategory, setStory } from "../redux/slice/dataSlice.js"
 import api from "../../services/api.js"
 
 const Tab = createBottomTabNavigator()
 
 const HomeScreen = ({ navigation }) => {
 	const dispatch = useDispatch()
-	const listStory = useSelector(selectStory)
-	const listCategory = useSelector(selectCategory)
-	const listAuthor = useSelector(selectAuthor)
 
 	const [isLoading, setIsLoading] = useState(true)
 
@@ -35,36 +25,34 @@ const HomeScreen = ({ navigation }) => {
 	}, [])
 
 	useEffect(() => {
-		fetchData()
+		setTimeout(async () => await fetchData(), 1000)
 	}, [])
 
 	const fetchData = async () => {
-		if (listStory.length !== 0) {
+		try {
+			await Promise.all([fetchStory(), fetchCategory(), fetchAuthor()])
 			setIsLoading(false)
-		} else {
-			const rs = await api.getStory()
-			if (rs.errorCode !== 0) return
-			dispatch(setStory(rs.data))
-			setIsLoading(false)
+		} catch (error) {
+			console.error(error)
 		}
+	}
 
-		if (listCategory.length !== 0) {
-			setIsLoading(false)
-		} else {
-			const rs = await api.getCategory()
-			if (rs.errorCode !== 0) return
-			dispatch(setCategory(rs.data))
-			setIsLoading(false)
-		}
+	const fetchStory = async () => {
+		const rs = await api.getStory()
+		if (rs.errorCode !== 0) return
+		dispatch(setStory(rs.data))
+	}
 
-		if (listAuthor.length !== 0) {
-			setIsLoading(false)
-		} else {
-			const rs = await api.getAuthor()
-			if (rs.errorCode !== 0) return
-			dispatch(setAuthor(rs.data))
-			setIsLoading(false)
-		}
+	const fetchCategory = async () => {
+		const rs = await api.getCategory()
+		if (rs.errorCode !== 0) return
+		dispatch(setCategory(rs.data))
+	}
+
+	const fetchAuthor = async () => {
+		const rs = await api.getAuthor()
+		if (rs.errorCode !== 0) return
+		dispatch(setAuthor(rs.data))
 	}
 
 	return (

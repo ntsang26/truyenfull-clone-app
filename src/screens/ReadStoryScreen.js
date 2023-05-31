@@ -26,7 +26,11 @@ const ReadStoryScreen = ({ navigation, route }) => {
 
 	const fetchData = async () => {
 		if (!storyId && chaps) {
-			setData(chaps)
+			let newData = [...chaps]
+			newData = newData.sort(
+				(a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+			)
+			setData(newData)
 			setIsLoading(false)
 		}
 		if (storyId) {
@@ -59,16 +63,12 @@ const ReadStoryScreen = ({ navigation, route }) => {
 						index={chapIndex || 0}
 					>
 						{data.map((item) => (
-							<ScrollView
-								key={item.sid}
-								style={styles.storyContent}
-								// scrollsToTop={true}
-							>
+							<ScrollView key={item.sid} style={styles.storyContent}>
 								<View>
 									<Text style={styles.chapTitle}>{item.title}</Text>
 									<RenderHTML
 										contentWidth={contentWidth}
-										source={{ html: item.content }}
+										source={{ html: item.content || DEFAULT_CONTENT }}
 										tagsStyles={tagStyles}
 									/>
 								</View>
@@ -118,3 +118,5 @@ const tagStyles = {
 		fontSize: 20,
 	},
 }
+
+const DEFAULT_CONTENT = `<p>Loading...</p>`

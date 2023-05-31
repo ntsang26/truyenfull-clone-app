@@ -48,7 +48,7 @@ const StoryDetails = ({ navigation, route }) => {
 					queryInput: {
 						storyId: sid,
 					},
-					sort: { createdAt: -1 },
+					sort: { createdAt: 1 },
 				}
 				let rs = await api.getChap(opt)
 				if (rs && rs.errorCode === 0) setChaps(rs.data)
@@ -108,7 +108,7 @@ const StoryDetails = ({ navigation, route }) => {
 					>
 						<RenderHTML
 							contentWidth={contentWidth}
-							source={{ html: story?.desc }}
+							source={{ html: story?.desc || DEFAULT_CONTENT }}
 						/>
 					</Text>
 					<Text
@@ -126,7 +126,7 @@ const StoryDetails = ({ navigation, route }) => {
 						marginBottom: 10,
 					}}
 				>
-					<Text style={{ fontWeight: 500 }}>Các số mới nhất</Text>
+					<Text style={{ fontWeight: 500 }}>Các số của truyện</Text>
 					<TouchableOpacity
 						onPress={() => {
 							navigation.navigate(VIEW.LIST_CHAP_BY_STORY, { chaps })
@@ -231,3 +231,5 @@ const styles = StyleSheet.create({
 		height: "auto",
 	},
 })
+
+const DEFAULT_CONTENT = `<p>Loading...</p>`
