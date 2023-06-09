@@ -19,9 +19,12 @@ const OfflineScreen = ({ navigation }) => {
 	const isFocused = useIsFocused()
 
 	useEffect(() => {
-		if (dataOffline.length) setData(dataOffline)
+		if (dataOffline.length) {
+			let sortedData = [...dataOffline]
+			sortedData.sort((a, b) => moment(b.updatedAt) - moment(a.updatedAt))
+			setData(sortedData)
+		}
 	}, [isFocused])
-
 	return (
 		<ScrollView scrollsToTop={true}>
 			<View style={styles.container}>
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 	},
 	storyTouch: {
-		marginVertical: 20,
+		marginVertical: 10,
 		backgroundColor: "#f1f2f6",
 		borderRadius: 10,
 		paddingHorizontal: 10,

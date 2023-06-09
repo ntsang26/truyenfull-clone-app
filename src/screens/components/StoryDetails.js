@@ -142,13 +142,13 @@ const StoryDetails = ({ navigation, route }) => {
 					<Text>
 						Ngày đăng:{" "}
 						<Text style={{ fontWeight: 500 }}>
-							{moment(story?.createdAt).format("hh:mm:ss DD-MM-yyyy")}
+							{moment(story?.createdAt).format("DD-MM-yyyy hh:mm")}
 						</Text>
 					</Text>
 					<Text>
 						Ngày cập nhật:{" "}
 						<Text style={{ fontWeight: 500 }}>
-							{moment(story?.updatedAt).format("hh:mm:ss DD-MM-yyyy")}
+							{moment(story?.updatedAt).format("DD-MM-yyyy hh:mm")}
 						</Text>
 					</Text>
 				</View>
