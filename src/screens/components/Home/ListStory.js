@@ -33,33 +33,40 @@ const ListStory = ({ navigation }) => {
 	}
 
 	return (
-		<ScrollView>
-			<View style={styles.container}>
-				{data.map((item) => {
-					return (
-						<TouchableOpacity
-							key={item.sid}
-							onPress={() => {
-								navigation.navigate(VIEW.STORY_DETAIL, { sid: item.sid })
-							}}
-							style={styles.storyTouch}
-						>
-							<View style={styles.storyItem}>
-								<Image source={{ uri: item.image }} style={styles.storyImage} />
-								<View style={styles.storyInfo}>
-									<Text style={styles.storyTitle}>{item.title}</Text>
-									<Text style={{ fontSize: 16 }}>Số chương: {item.chaps}</Text>
-									<Text style={{ fontSize: 16 }}>
-										Ngày phát hành:{" "}
-										{moment(item.createdAt).format("DD/MM/YYYY")}
-									</Text>
+		<View style={{ backgroundColor: "#FFF" }}>
+			<ScrollView>
+				<View style={styles.container}>
+					{data.map((item) => {
+						return (
+							<TouchableOpacity
+								key={item.sid}
+								onPress={() => {
+									navigation.navigate(VIEW.STORY_DETAIL, { sid: item.sid })
+								}}
+								style={styles.storyTouch}
+							>
+								<View style={styles.storyItem}>
+									<Image
+										source={{ uri: item.image }}
+										style={styles.storyImage}
+									/>
+									<View style={styles.storyInfo}>
+										<Text style={styles.storyTitle}>{item.title}</Text>
+										<Text style={{ fontSize: 16 }}>
+											Số chương: {item.chaps}
+										</Text>
+										<Text style={{ fontSize: 16 }}>
+											Ngày phát hành:{" "}
+											{moment(item.createdAt).format("DD/MM/YYYY")}
+										</Text>
+									</View>
 								</View>
-							</View>
-						</TouchableOpacity>
-					)
-				})}
-			</View>
-		</ScrollView>
+							</TouchableOpacity>
+						)
+					})}
+				</View>
+			</ScrollView>
+		</View>
 	)
 }
 
@@ -68,9 +75,10 @@ export default ListStory
 const styles = StyleSheet.create({
 	container: { paddingHorizontal: 20, backgroundColor: "#FFF" },
 	storyTouch: {
-		marginVertical: 20,
+		marginVertical: 10,
 		backgroundColor: "#f1f2f6",
 		borderRadius: 10,
+		paddingEnd: 20,
 	},
 	storyItem: {
 		flexDirection: "row",
@@ -88,6 +96,6 @@ const styles = StyleSheet.create({
 	},
 	storyTitle: {
 		fontSize: 18,
-		width: 200,
+		width: 220,
 	},
 })

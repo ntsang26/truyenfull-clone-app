@@ -94,9 +94,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	storyTouch: {
-		marginVertical: 20,
+		marginVertical: 10,
 		backgroundColor: "#f1f2f6",
 		borderRadius: 10,
+		paddingEnd: 20
 	},
 	storyItem: {
 		flexDirection: "row",
