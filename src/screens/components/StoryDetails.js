@@ -81,13 +81,21 @@ const StoryDetails = ({ navigation, route }) => {
 	const handleDownloadStory = async (data, itemKey) => {
 		try {
 			const newDataOffline = [...dataOffline]
-			const saveData = { ...data }
-			saveData.storyChaps = chaps
-			newDataOffline.push(saveData)
-			const jsonValue = JSON.stringify(cloneDeep(saveData))
-			await AsyncStorage.setItem(itemKey, jsonValue)
-			dispatch(setDataOffline(newDataOffline))
-			Alert.alert("Thông báo", "Lưu truyện thành công!")
+			let isDuplicate = false
+			for (const item of newDataOffline) {
+				if (item.sid === itemKey) isDuplicate = true
+			}
+			if (isDuplicate) {
+				Alert.alert("Thông báo", "Bạn đã lưu truyện này rồi!")
+			} else {
+				const saveData = { ...data }
+				saveData.storyChaps = chaps
+				newDataOffline.push(saveData)
+				const jsonValue = JSON.stringify(cloneDeep(saveData))
+				await AsyncStorage.setItem(itemKey, jsonValue)
+				dispatch(setDataOffline(newDataOffline))
+				Alert.alert("Thông báo", "Lưu truyện thành công!")
+			}
 		} catch (e) {
 			console.log(e)
 			throw e

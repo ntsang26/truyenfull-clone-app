@@ -26,9 +26,9 @@ const OfflineScreen = ({ navigation }) => {
 		}
 	}, [isFocused])
 	return (
-		<View style={styles.container}>
+		<View >
 			<ScrollView scrollsToTop={true}>
-				<View>
+				<View style={styles.container}>
 					{data.map((item) => {
 						return (
 							<TouchableOpacity
