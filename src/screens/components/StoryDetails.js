@@ -87,7 +87,7 @@ const StoryDetails = ({ navigation, route }) => {
 			const jsonValue = JSON.stringify(cloneDeep(saveData))
 			await AsyncStorage.setItem(itemKey, jsonValue)
 			dispatch(setDataOffline(newDataOffline))
-			Alert.alert("Thông báo", "Tải truyện thành công!")
+			Alert.alert("Thông báo", "Lưu truyện thành công!")
 		} catch (e) {
 			console.log(e)
 			throw e
@@ -97,7 +97,7 @@ const StoryDetails = ({ navigation, route }) => {
 	const onDownload = (story) => {
 		Alert.alert(
 			"Thông báo",
-			`Bạn muốn tải truyện ${story.title} đúng không ?`,
+			`Bạn muốn lưu truyện ${story.title} vào mục yêu thích đúng không ?`,
 			[
 				{
 					text: "Không",

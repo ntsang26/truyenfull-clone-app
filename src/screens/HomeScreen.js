@@ -150,7 +150,7 @@ const HomeScreen = ({ navigation }) => {
 						options={{
 							tabBarIcon: ({ color, size }) => (
 								<Ionicons
-									name="ios-cloud-download-outline"
+									name="ios-heart-outline"
 									size={size}
 									color={color}
 								/>
