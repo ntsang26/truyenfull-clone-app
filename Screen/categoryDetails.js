@@ -1,10 +1,10 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { DESC } from '../constant/view.js';
+import { DESC } from "../constant/view.js";
 
 const CategoryDetails = ({ route, navigation }) => {
-  const { sid } = route.params;
+  const { sid, name } = route.params;
 
   const list = useSelector((state) => state);
   const data = list.posts.posts;

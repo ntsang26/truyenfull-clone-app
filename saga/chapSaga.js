@@ -6,7 +6,7 @@ import { getListChapSuccess } from "../action/chapAction";
 import { GET_LIST_CHAP } from "../constant/chapConstant";
 
 function* getListChapSaga(action) {
-  //   console.log("action gửi lên là ", action);
+  console.log("action gửi lên là ", action);
   try {
     const data = yield call(callChap, action.payload);
     // console.log("console log data", data);
